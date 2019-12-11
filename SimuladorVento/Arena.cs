@@ -94,10 +94,16 @@ namespace SimuladorVento
             x = (float)Math.Cos(angle);
             y = (float)Math.Sin(angle);
 
-            fans[fanNumber].Force = new Vector2(x, y);
+            for (int k = 0; k < fans.Count; k++)
+            {
+                if (fanNumber == fans[k].Number)
+                {
+                    fans[k].Force = new Vector2(x, y);
 
-            fans[fanNumber].Rotation = (float)Math.Atan2(x, y);
-            fans[fanNumber].Rotation *= 180f / (float)Math.PI;
+                    fans[k].Rotation = (float)Math.Atan2(x, y);
+                    fans[k].Rotation *= 180f / (float)Math.PI;
+                }
+            }
         }
 
         public void mouseClick(object sender, MouseEventArgs e)
@@ -113,14 +119,11 @@ namespace SimuladorVento
                     addLateralFan(new Vector2(e.X, e.Y), fanNumber);
                     break;
                 case "remove":
-                    int remove = -1;
-                    foreach (Fan f in fans)
+                    for(int k = 0; k < fans.Count; k++)
                     {
-                        if (f.IsInPolygon(f.points, new Point(e.X, e.Y)))
-                            remove = f.Number;
+                        if (fans[k].IsInPolygon(fans[k].points.ToArray(), e.X, e.Y))
+                            fans.Remove(fans[k]);
                     }
-                    if (remove > -1)
-                        fans.RemoveAt(remove);
                     break;
             }
         }
