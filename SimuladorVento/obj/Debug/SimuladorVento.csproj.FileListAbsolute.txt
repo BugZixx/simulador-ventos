@@ -1,0 +1,10 @@
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\bin\Debug\SimuladorVento.exe.config
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\bin\Debug\SimuladorVento.exe
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\bin\Debug\SimuladorVento.pdb
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\obj\Debug\SimuladorVento.csprojAssemblyReference.cache
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\obj\Debug\SimuladorVento.Properties.Resources.resources
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\obj\Debug\SimuladorVento.Simulador.resources
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\obj\Debug\SimuladorVento.csproj.GenerateResource.cache
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\obj\Debug\SimuladorVento.csproj.CoreCompileInputs.cache
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\obj\Debug\SimuladorVento.exe
+C:\Users\tempuser\source\repos\SimuladorVento\SimuladorVento\obj\Debug\SimuladorVento.pdb
