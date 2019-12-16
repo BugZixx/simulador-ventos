@@ -14,12 +14,12 @@ namespace SimuladorVento
         private Vector2 pos, force;
         private float rotation;
         private Pen myPen;
-        private Point[] points;
+        private Rectangle rect;
 
         public WindBox(Vector2 pos, float x, float y)
         {
             this.pos = pos + (new Vector2(x, y));
-            points = new Point[] { new Point(15, 5), new Point(35, 0), new Point(15, -5) };
+            rect = new Rectangle(15, -25, 85, 50);
             myPen = new Pen(Color.Red, 1);
 
         }
@@ -42,12 +42,18 @@ namespace SimuladorVento
             set { rotation = value; }
         }
 
+        public Rectangle Rect
+        {
+            get { return rect; }
+            set { rect = value; }
+        }
+
         public void draw(Graphics g)
         {
             g.ResetTransform();
             g.TranslateTransform(pos.X, pos.Y, MatrixOrder.Append);
             g.RotateTransform(rotation);
-            g.DrawPolygon(myPen, points);
+            g.DrawRectangle(myPen, rect);
         }
     }
 }

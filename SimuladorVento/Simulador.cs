@@ -69,6 +69,7 @@ namespace SimuladorVento
         private void panelArea_MouseDown(object sender, MouseEventArgs e)
         {
             arena.mouseClick(sender, e);
+            statusLabelInfo.Text = arena.x;
         }
 
         private void panelArea_MouseMove(object sender, MouseEventArgs e)

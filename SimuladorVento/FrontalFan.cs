@@ -11,11 +11,6 @@ namespace SimuladorVento
 {
     public class FrontalFan : Fan
     {
-        public Vector2 Pos
-        {
-            get { return pos; }
-            set { pos = value; }
-        }
 
         public FrontalFan(Vector2 newPos, Vector2 newForce, int n)
         {
@@ -25,17 +20,16 @@ namespace SimuladorVento
             this.rotation = 0;
             this.force = newForce;
             this.number = n;
-            points = new Point[] { new Point(-10, 5), new Point(10, 0), new Point(-10, -5) };
-            windBox = new WindBox(pos, points[1].X, points[1].Y);
-            myPen = new Pen(Color.White, 1);
+            points = new Point[] { new Point(-10, 0), new Point(-6, 6), new Point(-1, 7), new Point(3, 4), new Point(6, 12), new Point(8, 13), new Point(9, 0), new Point(8, -13), new Point(6, -12), new Point(3, -4), new Point(-1, -7), new Point(-6, -6) };
+            windBox = new WindBox(pos, points[6].X, points[6].Y);
+            dim = new SizeF(6, 6);
+            pincel = new SolidBrush(Color.White);
         }
 
-        public Vector2 getNewPosition(float r)
+        public override Vector2 getNewPosition(float r, float x, float y)
         {
             Vector2 newPos;
-            float x, y, x1, y1;
-            x = 10;
-            y = 0;
+            float x1, y1;
             r *= (float)(Math.PI / 180);
             x1 = (float)(x * Math.Cos(r) - y * Math.Sin(r));
             y1 = (float)(y * Math.Cos(r) + x * Math.Sin(r));
@@ -48,13 +42,17 @@ namespace SimuladorVento
         public override void draw(Graphics g)
         {
             g.ResetTransform();
-            g.TranslateTransform(pos.X - (points[1].X / 2), pos.Y - (points[1].Y / 2), MatrixOrder.Append);
+            g.TranslateTransform(pos.X - (points[6].X / 2), pos.Y - (points[6].Y / 2), MatrixOrder.Append);
             g.ScaleTransform(2, 2);
             g.RotateTransform(rotation);
             g.DrawImage(fanImg, fanRect);
-            g.DrawPolygon(myPen, points);
+            RectangleF rect = new RectangleF(
+                new Point((int)-dim.Width / 2, (int)-dim.Height / 2),
+                dim);
+            g.FillEllipse(pincel, rect);
 
-            Vector2 newPos = getNewPosition(rotation);
+            Vector2 newPos = getNewPosition(rotation, 10, 0);
+            Vector2 newHitBoxPos = getNewPosition(rotation, windBox.Rect.X, windBox.Rect.Y);
 
             windBox.Pos = new Vector2(pos.X + newPos.X - 5, pos.Y + newPos.Y);
             windBox.Rotation = rotation;

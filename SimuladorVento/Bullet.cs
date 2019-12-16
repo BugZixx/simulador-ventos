@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 
 namespace SimuladorVento
 {
-    class Bullet
+    public class Bullet
     {
         private Vector2 pos, velo, acel;
-        private SizeF dim;
+        private Size dim;
         private SolidBrush pincel;
         private int number;
+        private Rectangle rect;
+        public Rectangle bR;
 
         public Vector2 Pos
         {
@@ -38,6 +40,11 @@ namespace SimuladorVento
         {
             get { return dim.Width / 2; }
         }
+        public Rectangle Rect
+        {
+            get { return rect; }
+            set { rect = value; }
+        }
 
         public Bullet(Vector2 position, int n)
         {
@@ -45,9 +52,12 @@ namespace SimuladorVento
             number = n;
             velo = new Vector2(2,0);
             acel = new Vector2(0);
-            dim = new SizeF(8, 8);
+            dim = new Size(8, 8);
             Color c = ColorTranslator.FromHtml("#FFFA9D");
             pincel = new SolidBrush(c);
+            rect = new Rectangle(
+                new Point((int)-dim.Width / 2, (int)-dim.Height / 2),
+                dim);
         }
 
         public void move()
@@ -58,12 +68,9 @@ namespace SimuladorVento
 
         public void draw(Graphics g)
         {
-            RectangleF rect = new RectangleF(
-                new Point((int)-dim.Width / 2, (int)-dim.Height / 2),
-                dim);
             g.ResetTransform();
             g.TranslateTransform(pos.X, pos.Y, MatrixOrder.Append);
-            g.FillEllipse(pincel, rect);
+            g.FillRectangle(pincel, rect);
         }
     }
 }

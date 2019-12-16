@@ -35,6 +35,12 @@ namespace SimuladorVento
             bullets = new List<Bullet>();
         }
 
+        public List<Bullet> Bullets
+        {
+            get { return bullets; }
+            set { bullets = value; }
+        }
+
         public Vector2 Pos
         {
             get { return pos; }
@@ -55,7 +61,9 @@ namespace SimuladorVento
         public void moveBullets()
         {
             foreach (Bullet e in bullets)
+            {
                 e.move();
+            }
         }
 
         public void draw(Graphics g)

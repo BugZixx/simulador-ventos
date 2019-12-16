@@ -11,11 +11,6 @@ namespace SimuladorVento
 {
     public class LateralFan : Fan
     {
-        public Vector2 Pos
-        {
-            get { return pos; }
-            set { pos = value; }
-        }
 
         public LateralFan(Vector2 newPos, Vector2 newForce, int n)
         {
@@ -25,15 +20,15 @@ namespace SimuladorVento
             this.rotation = 0;
             this.force = newForce;
             this.number = n;
-            this.points = new Point[] { new Point(-10, 5), new Point(16, 0), new Point(-10, -5) };
+            points = new Point[] { new Point(-10, 0), new Point(-6, 6), new Point(-1, 7), new Point(3, 4), new Point(6, 12), new Point(8, 13), new Point(9, 0), new Point(8, -13), new Point(6, -12), new Point(3, -4), new Point(-1, -7), new Point(-6, -6) };
             windBox = new WindBox(pos, points[1].X, points[1].Y);
             myPen = new Pen(Color.White, 1);
         }
 
-        public Vector2 getNewPosition(float r)
+        public override Vector2 getNewPosition(float r, float x, float y)
         {
             Vector2 newPos;
-            float x, y, x1, y1;
+            float x1, y1;
             x = 16;
             y = 0;
             r *= (float)(Math.PI / 180);
@@ -54,7 +49,7 @@ namespace SimuladorVento
             g.DrawImage(fanImg, fanRect);
             g.DrawPolygon(myPen, points);
 
-            Vector2 newPos = getNewPosition(rotation);
+            Vector2 newPos = getNewPosition(rotation, 10, 0);
 
             windBox.Pos = new Vector2(pos.X + newPos.X - 8, pos.Y + newPos.Y);
             windBox.Rotation = rotation - 90;

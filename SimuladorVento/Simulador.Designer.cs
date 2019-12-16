@@ -41,6 +41,8 @@
             this.buttonRotate = new System.Windows.Forms.Button();
             this.buttonForce = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
+            this.statusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,6 +70,8 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabelInfo});
             this.statusStrip1.Location = new System.Drawing.Point(0, 517);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(886, 22);
@@ -95,7 +99,7 @@
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
@@ -183,6 +187,12 @@
             this.buttonRemove.UseVisualStyleBackColor = false;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
+            // statusLabelInfo
+            // 
+            this.statusLabelInfo.Name = "statusLabelInfo";
+            this.statusLabelInfo.Size = new System.Drawing.Size(57, 17);
+            this.statusLabelInfo.Text = "Info = 0,0";
+            // 
             // Simulador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,6 +210,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Simulador";
             this.Text = "Form1";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -221,6 +233,7 @@
         private System.Windows.Forms.Button buttonRotate;
         private System.Windows.Forms.Button buttonForce;
         private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabelInfo;
     }
 }
 
