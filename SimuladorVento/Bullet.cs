@@ -70,7 +70,7 @@ namespace SimuladorVento
         {
             g.ResetTransform();
             g.TranslateTransform(pos.X, pos.Y, MatrixOrder.Append);
-            g.FillRectangle(pincel, rect);
+            g.FillEllipse(pincel, rect);
         }
     }
 }

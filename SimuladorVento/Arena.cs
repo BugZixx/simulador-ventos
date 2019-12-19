@@ -23,6 +23,9 @@ namespace SimuladorVento
         private int selectedFan;
         private SolidBrush pincel;
         public String x = "";
+        private Region r;
+        private GraphicsPath grapPth;
+        private RectangleF rectRegion;
 
         private static Arena instancia = null;
         public List<Fan> fans;
@@ -82,17 +85,34 @@ namespace SimuladorVento
             foreach (Fan f in fans)
             {
                 f.wBR = f.WindBox.Rect;
+                Vector2 tl = new Vector2(f.wBR.Left, f.wBR.Top);
+                Vector2 bl = new Vector2(f.wBR.Left, f.wBR.Bottom);
+                Vector2 tr = new Vector2(f.wBR.Right, f.wBR.Top);
+                Vector2 br = new Vector2(f.wBR.Right, f.wBR.Bottom);
+
                 f.wBR = new Rectangle(f.wBR.X + (int)f.Pos.X + 5, f.wBR.Y + (int)f.Pos.Y, f.wBR.Width, f.wBR.Height);
-                g.ResetTransform();
+                tl += new Vector2((int)f.Pos.X + 5, (int)f.Pos.Y);
+                bl += new Vector2((int)f.Pos.X + 5, (int)f.Pos.Y);
+                tr += new Vector2((int)f.Pos.X + 5, (int)f.Pos.Y);
+                br += new Vector2((int)f.Pos.X + 5, (int)f.Pos.Y);
+
+                Point[] p = { ToPoint(bl), ToPoint(tl), ToPoint(tr), ToPoint(br) };
+                grapPth = new GraphicsPath();
+                grapPth.AddLines(p);
                 g.Transform = rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y));
+                r = new Region(grapPth);
+                grapPth.Transform(rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y)));
+                r.Transform(rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y)));
+                rectRegion = r.GetBounds(g);
+                rotationAngle(f.Number, new Vector2((int)grapPth.PathPoints[1].X, (int)grapPth.PathPoints[1].Y), new Vector2((int)grapPth.PathPoints[2].X, (int)grapPth.PathPoints[2].Y));
+
                 foreach (Bullet b in spawner.Bullets)
                 {
                     b.bR = b.Rect;
                     b.bR = new Rectangle(b.bR.X + (int)b.Pos.X, b.bR.Y + (int)b.Pos.Y, b.bR.Width, b.bR.Height);
-                    if (true)
-                        b.Acel += new Vector2(0.01f, 0.01f);
+                    if (r.IsVisible(b.bR))
+                        b.Acel = f.Force * -0.1f;
                     g.ResetTransform();
-                    g.FillRectangle(pincel, b.bR);
                 }
             }
         }
@@ -104,17 +124,23 @@ namespace SimuladorVento
             return result;
         }
 
-        public Vector2 getNewPosition(float r, float x, float y)
+        public void rotationAngle(int fN, Vector2 alvo, Vector2 pos)
         {
-            Vector2 newPos;
-            float x1, y1;
-            r *= (float)(Math.PI / 180);
-            x1 = (float)(x * Math.Cos(r) - y * Math.Sin(r));
-            y1 = (float)(y * Math.Cos(r) + x * Math.Sin(r));
+            Vector2 d = alvo - pos;
+            this.x = alvo.ToString() + pos.ToString();
+            float x, y;
+            float angle = (float)Math.Atan2(d.X, d.Y);
 
-            newPos = new Vector2(x1, y1);
+            x = (float)Math.Cos(angle);
+            y = (float)Math.Sin(angle);
 
-            return newPos;
+            for (int k = 0; k < fans.Count; k++)
+            {
+                if (fN == fans[k].Number)
+                {
+                    fans[k].Force = new Vector2(y, x);
+                }
+            }
         }
 
         public void addFrontalFan(Vector2 position, int fanNumber)
@@ -239,6 +265,11 @@ namespace SimuladorVento
                         rotation = false;
                     break;
             }
+        }
+
+        public Point ToPoint(Vector2 v2)
+        {
+            return (new Point((int)v2.X, (int)v2.Y));
         }
 
         public void draw(Graphics g)

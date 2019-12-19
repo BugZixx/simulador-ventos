@@ -32,6 +32,7 @@
             this.panelArea = new System.Windows.Forms.Panel();
             this.timerAnimation = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,7 +42,6 @@
             this.buttonRotate = new System.Windows.Forms.Button();
             this.buttonForce = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
-            this.statusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +51,7 @@
             this.panelArea.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelArea.BackColor = System.Drawing.SystemColors.MenuText;
+            this.panelArea.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.panelArea.Location = new System.Drawing.Point(12, 12);
             this.panelArea.Name = "panelArea";
             this.panelArea.Size = new System.Drawing.Size(862, 458);
@@ -78,6 +78,12 @@
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // statusLabelInfo
+            // 
+            this.statusLabelInfo.Name = "statusLabelInfo";
+            this.statusLabelInfo.Size = new System.Drawing.Size(57, 17);
+            this.statusLabelInfo.Text = "Info = 0,0";
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -99,7 +105,7 @@
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
@@ -186,12 +192,6 @@
             this.buttonRemove.Text = " \r\n";
             this.buttonRemove.UseVisualStyleBackColor = false;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
-            // 
-            // statusLabelInfo
-            // 
-            this.statusLabelInfo.Name = "statusLabelInfo";
-            this.statusLabelInfo.Size = new System.Drawing.Size(57, 17);
-            this.statusLabelInfo.Text = "Info = 0,0";
             // 
             // Simulador
             // 
