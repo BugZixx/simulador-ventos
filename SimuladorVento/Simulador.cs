@@ -114,6 +114,8 @@ namespace SimuladorVento
         {
             resetButtons();
             buttonForce.BackgroundImage = Properties.Resources.buttonForceInverted;
+            forceBar.Visible = true;
+            arena.BarValue = forceBar.Value;
             arena.Action = "force";
         }
 
@@ -132,6 +134,23 @@ namespace SimuladorVento
             buttonMove.BackgroundImage = Properties.Resources.buttonMove;
             buttonRemove.BackgroundImage = Properties.Resources.buttonRemove;
             buttonRotate.BackgroundImage = Properties.Resources.buttonRotate;
+            forceBar.Visible = false;
+        }
+
+        private void forceBar_ValueChanged(object sender, EventArgs e)
+        {
+            arena.BarValue = forceBar.Value;
+        }
+
+        private void Simulador_Resize(object sender, EventArgs e)
+        {
+            buttonCreateFrontal.Location = new Point(buttonCreateFrontal.Location.X, Height - 102);
+            buttonCreateLateral.Location = new Point(buttonCreateLateral.Location.X, Height - 102);
+            buttonForce.Location = new Point(buttonForce.Location.X, Height - 102);
+            buttonMove.Location = new Point(buttonMove.Location.X, Height - 102);
+            buttonRemove.Location = new Point(buttonRemove.Location.X, Height - 102);
+            buttonRotate.Location = new Point(buttonRotate.Location.X, Height - 102);
+            arena.objective.Pos = new Vector2(arena.Area.Width - arena.objective.PosWidth, arena.Area.Height - 10);
         }
     }
 }

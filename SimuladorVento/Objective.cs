@@ -17,6 +17,8 @@ namespace SimuladorVento
         private Random rndPos;
         private Bitmap targetImg;
         private Rectangle targetRect;
+        private int posWidth;
+        private bool goalAchieved;
 
         private Pen myPen;
         private Point[] points;
@@ -25,12 +27,11 @@ namespace SimuladorVento
 
         public Objective(int width, int height)
         {
-            targetImg = new Bitmap(Properties.Resources.target);
-            targetRect = new Rectangle(0 - targetImg.Width / 20, 0 - targetImg.Height / 20, targetImg.Width / 10, targetImg.Height / 10);
             rndPos = new Random();
-            pos = new Vector2(rndPos.Next(width / 2, width - 30), height-10);
+            posWidth = rndPos.Next(0, width / 2 - 30);
+            pos = new Vector2(width - posWidth, height-10);
             rotation = 0;
-            points = new Point[] { new Point(-5, 0), new Point(0, -10), new Point(5, 0) };
+            points = new Point[] { new Point(-14, 0), new Point(-8, -5), new Point(0, -6), new Point(8, -5), new Point(14, 0), new Point(8, 5), new Point(-8, 5) };
             myPen = new Pen(Color.White, 1);
             bullets = new List<Bullet>();
         }
@@ -40,9 +41,30 @@ namespace SimuladorVento
             get { return pos; }
             set { pos = value; }
         }
+        public int PosWidth
+        {
+            get { return posWidth; }
+            set { posWidth = value; }
+        }
+
+        public Point[] Points
+        {
+            get { return points; }
+            set { points = value; }
+        }
+        public bool GoalAchieved
+        {
+            get { return goalAchieved; }
+            set { goalAchieved = value; }
+        }
 
         public void draw(Graphics g)
         {
+            if(!goalAchieved)
+                targetImg = new Bitmap(Properties.Resources.target);
+            else
+                targetImg = new Bitmap(Properties.Resources.targetAchieved);
+            targetRect = new Rectangle(0 - targetImg.Width / 20, 0 - targetImg.Height / 20, targetImg.Width / 10, targetImg.Height / 10);
             g.ResetTransform();
             g.RotateTransform(rotation, MatrixOrder.Append);
             g.TranslateTransform(pos.X, pos.Y, MatrixOrder.Append);

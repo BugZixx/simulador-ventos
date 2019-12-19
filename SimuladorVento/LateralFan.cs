@@ -18,7 +18,7 @@ namespace SimuladorVento
             fanRect = new Rectangle(0 - fanImg.Width / 22, 0 - fanImg.Height / 22, fanImg.Width / 11, fanImg.Height / 11);
             this.pos = newPos;
             this.rotation = 0;
-            this.force = newForce;
+            this.angle = newForce;
             this.number = n;
             points = new Point[] { new Point(-10, 0), new Point(-6, 6), new Point(-1, 7), new Point(3, 4), new Point(6, 12), new Point(8, 13), new Point(9, 0), new Point(8, -13), new Point(6, -12), new Point(3, -4), new Point(-1, -7), new Point(-6, -6) };
             windBox = new WindBox(pos, points[1].X, points[1].Y);

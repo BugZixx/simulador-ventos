@@ -219,5 +219,15 @@ namespace SimuladorVento.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap targetAchieved {
+            get {
+                object obj = ResourceManager.GetObject("targetAchieved", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

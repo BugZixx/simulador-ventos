@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelArea = new System.Windows.Forms.Panel();
+            this.forceBar = new System.Windows.Forms.TrackBar();
             this.timerAnimation = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
@@ -42,6 +43,8 @@
             this.buttonRotate = new System.Windows.Forms.Button();
             this.buttonForce = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
+            this.panelArea.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.forceBar)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +55,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelArea.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panelArea.Controls.Add(this.forceBar);
             this.panelArea.Location = new System.Drawing.Point(12, 12);
             this.panelArea.Name = "panelArea";
             this.panelArea.Size = new System.Drawing.Size(862, 458);
@@ -61,6 +65,22 @@
             this.panelArea.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelArea_MouseDown);
             this.panelArea.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelArea_MouseMove);
             this.panelArea.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelArea_MouseUp);
+            // 
+            // forceBar
+            // 
+            this.forceBar.BackColor = System.Drawing.Color.White;
+            this.forceBar.LargeChange = 10;
+            this.forceBar.Location = new System.Drawing.Point(434, 413);
+            this.forceBar.Maximum = 100;
+            this.forceBar.Name = "forceBar";
+            this.forceBar.Size = new System.Drawing.Size(326, 45);
+            this.forceBar.SmallChange = 5;
+            this.forceBar.TabIndex = 0;
+            this.forceBar.TickFrequency = 10;
+            this.forceBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.forceBar.Value = 1;
+            this.forceBar.Visible = false;
+            this.forceBar.ValueChanged += new System.EventHandler(this.forceBar_ValueChanged);
             // 
             // timerAnimation
             // 
@@ -210,6 +230,10 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Simulador";
             this.Text = "Form1";
+            this.Resize += new System.EventHandler(this.Simulador_Resize);
+            this.panelArea.ResumeLayout(false);
+            this.panelArea.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.forceBar)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -234,6 +258,7 @@
         private System.Windows.Forms.Button buttonForce;
         private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelInfo;
+        private System.Windows.Forms.TrackBar forceBar;
     }
 }
 

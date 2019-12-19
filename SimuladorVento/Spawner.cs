@@ -28,7 +28,7 @@ namespace SimuladorVento
             spawnerImg = new Bitmap(Properties.Resources.spawner);
             spawnerRect = new Rectangle(0 - spawnerImg.Width / 20, 0 - spawnerImg.Height / 20, spawnerImg.Width / 10, spawnerImg.Height / 10);
             rndPos = new Random();
-            pos = new Vector2(10, rndPos.Next(20, height / 2));
+            pos = new Vector2(10, rndPos.Next(60, height / 2));
             rotation = 0;
             points = new Point[] { new Point(0, 5), new Point(10, 0), new Point(0, -5)};
             myPen = new Pen(Color.White, 1);
@@ -76,7 +76,7 @@ namespace SimuladorVento
             g.TranslateTransform(pos.X, pos.Y, MatrixOrder.Append);
             g.ScaleTransform(2, 2);
             g.DrawImage(spawnerImg, spawnerRect);
-            g.DrawPolygon(myPen, points);
+            //g.DrawPolygon(myPen, points);
         }
     }
 }

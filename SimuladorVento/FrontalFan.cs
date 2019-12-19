@@ -18,12 +18,13 @@ namespace SimuladorVento
             fanRect = new Rectangle(0 - fanImg.Width / 30, 0 - fanImg.Height / 30, fanImg.Width / 15, fanImg.Height / 15);
             this.pos = newPos;
             this.rotation = 0;
-            this.force = newForce;
+            this.angle = newForce;
             this.number = n;
             points = new Point[] { new Point(-10, 0), new Point(-6, 6), new Point(-1, 7), new Point(3, 4), new Point(6, 12), new Point(8, 13), new Point(9, 0), new Point(8, -13), new Point(6, -12), new Point(3, -4), new Point(-1, -7), new Point(-6, -6) };
             windBox = new WindBox(pos, points[6].X, points[6].Y);
             dim = new SizeF(6, 6);
             pincel = new SolidBrush(Color.White);
+            force = -0.1f;
         }
 
         public override Vector2 getNewPosition(float r, float x, float y)

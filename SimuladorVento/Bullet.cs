@@ -17,6 +17,9 @@ namespace SimuladorVento
         private int number;
         private Rectangle rect;
         public Rectangle bR;
+        private bool rem;
+        public Vector2 remAcel;
+        private bool goalAchieved;
 
         public Vector2 Pos
         {
@@ -44,6 +47,21 @@ namespace SimuladorVento
         {
             get { return rect; }
             set { rect = value; }
+        }
+        public Vector2 RemAcel
+        {
+            get { return remAcel; }
+            set { remAcel = value; }
+        }
+        public bool Rem
+        {
+            get { return rem; }
+            set { rem = value; }
+        }
+        public bool GoalAchieved
+        {
+            get { return goalAchieved; }
+            set { goalAchieved = value; }
         }
 
         public Bullet(Vector2 position, int n)

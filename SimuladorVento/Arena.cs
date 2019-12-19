@@ -12,31 +12,36 @@ namespace SimuladorVento
 {
     class Arena
     {
+        private int l;
         private Size area;
         private Spawner spawner;
-        private Objective objective;
+        public Objective objective;
         private Vector2 savedPos;
         private string action;
         private int fanNumber = 0;
         private bool rotation = false;
         private bool motion = false;
+        private bool changeForce = false;
         private int selectedFan;
         private SolidBrush pincel;
         public String x = "";
-        private Region r;
-        private GraphicsPath grapPth;
-        private RectangleF rectRegion;
+        private Region objectiveR;
+        private List<Region> r;
+        private GraphicsPath grapPth, objPath;
+        private float barValue;
 
         private static Arena instancia = null;
         public List<Fan> fans;
 
         public Arena(Size d)
         {
+            l = 6;
             area = d;
             spawner = new Spawner(area.Height);
             objective = new Objective(area.Width, area.Height);
             fans = new List<Fan>();
             pincel = new SolidBrush(Color.White);
+            r = new List<Region>();
         }
 
         public static Arena GetInstancia(Size d)
@@ -64,23 +69,27 @@ namespace SimuladorVento
                     area = value;
             }
         }
+        public float BarValue
+        {
+            get { return barValue; }
+            set { barValue = value; }
+        }
 
         public string Action
         {
             get { return action; }
-            set
-            {
-                action = value;
-            }
+            set { action = value; }
         }
 
         public void move()
         {
             spawner.SpawnBullet();
             spawner.moveBullets();
+            collisionFan();
+            collisionObjective();
         }
 
-        public void collision(Graphics g)
+        public void collisionFan()
         {
             foreach (Fan f in fans)
             {
@@ -99,21 +108,64 @@ namespace SimuladorVento
                 Point[] p = { ToPoint(bl), ToPoint(tl), ToPoint(tr), ToPoint(br) };
                 grapPth = new GraphicsPath();
                 grapPth.AddLines(p);
-                g.Transform = rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y));
-                r = new Region(grapPth);
+                r[f.Number] = new Region(grapPth);
                 grapPth.Transform(rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y)));
-                r.Transform(rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y)));
-                rectRegion = r.GetBounds(g);
+                r[f.Number].Transform(rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y)));
                 rotationAngle(f.Number, new Vector2((int)grapPth.PathPoints[1].X, (int)grapPth.PathPoints[1].Y), new Vector2((int)grapPth.PathPoints[2].X, (int)grapPth.PathPoints[2].Y));
 
                 foreach (Bullet b in spawner.Bullets)
                 {
                     b.bR = b.Rect;
                     b.bR = new Rectangle(b.bR.X + (int)b.Pos.X, b.bR.Y + (int)b.Pos.Y, b.bR.Width, b.bR.Height);
-                    if (r.IsVisible(b.bR))
-                        b.Acel = f.Force * -0.1f;
-                    g.ResetTransform();
+                    if (r[f.Number].IsVisible(b.bR))
+                    {
+                        b.Rem = true;
+                        f.Rem = true;
+                        b.Acel += f.Angle * f.Force * 0.005f;
+                        b.remAcel = b.Acel;
+                    }
+                    if (!r[f.Number].IsVisible(b.bR) && b.Rem == true && f.Rem == true)
+                    {
+                        b.Acel -= b.remAcel;
+                        b.Rem = false;
+                        f.Rem = false;
+                    }
                 }
+            }
+        }
+
+        public void collisionObjective()
+        {
+            objPath = new GraphicsPath();
+            objPath.AddLines(objective.Points);
+            objectiveR = new Region(objPath);
+            objectiveR.Transform(scaleMatrix(2, 2));
+            objectiveR.Translate(objective.Pos.X, objective.Pos.Y);
+            foreach(Bullet b in spawner.Bullets)
+            {
+                b.bR = b.Rect;
+                b.bR = new Rectangle(b.bR.X + (int)b.Pos.X, b.bR.Y + (int)b.Pos.Y, b.bR.Width, b.bR.Height);
+                if (objectiveR.IsVisible(b.bR))
+                {
+                    b.GoalAchieved = true;
+                }
+                else
+                    b.GoalAchieved = false;
+
+            }
+            if (spawner.Bullets.All(Bullet => Bullet.GoalAchieved.Equals(false)) && l == 16)
+            {
+                objective.GoalAchieved = false;
+                l = 0;
+            }
+            else if (spawner.Bullets.All(Bullet => Bullet.GoalAchieved.Equals(false)) && l < 16)
+            {
+                l++;
+            }
+            else
+            {
+                objective.GoalAchieved = true;
+                l = 0;
             }
         }
 
@@ -122,6 +174,13 @@ namespace SimuladorVento
             Matrix result = new Matrix();
             result.RotateAt(angle, center);
             return result;
+        }
+
+        private Matrix scaleMatrix(float sX, float sY)
+        {
+            Matrix m = new Matrix();
+            m.Scale(sX, sY);
+            return m;
         }
 
         public void rotationAngle(int fN, Vector2 alvo, Vector2 pos)
@@ -138,7 +197,7 @@ namespace SimuladorVento
             {
                 if (fN == fans[k].Number)
                 {
-                    fans[k].Force = new Vector2(y, x);
+                    fans[k].Angle = new Vector2(y, x);
                 }
             }
         }
@@ -147,6 +206,7 @@ namespace SimuladorVento
         {
             savedPos = position;
             FrontalFan newFan = new FrontalFan(position, new Vector2(0, 0), fanNumber);
+            r.Add(new Region());
             fans.Add(newFan);
         }
 
@@ -170,7 +230,7 @@ namespace SimuladorVento
             {
                 if (fN == fans[k].Number)
                 {
-                    fans[k].Force = new Vector2(x, y);
+                    fans[k].Angle = new Vector2(x, y);
 
                     fans[k].Rotation = (float)Math.Atan2(x, y);
                     fans[k].Rotation *= 180f / (float)Math.PI;
@@ -212,10 +272,18 @@ namespace SimuladorVento
                     }
                     break;
                 case "remove":
-                    for(int k = 0; k < fans.Count; k++)
+                    for (int k = 0; k < fans.Count; k++)
                     {
                         if (fans[k].IsInPolygon(fans[k].points.ToArray(), e.X, e.Y))
                             fans.Remove(fans[k]);
+                    }
+                    break;
+                case "force":
+                    for (int k = 0; k < fans.Count; k++)
+                    {
+                        if (fans[k].IsInPolygon(fans[k].points.ToArray(), e.X, e.Y))
+                            selectedFan = k;
+                        changeForce = true;
                     }
                     break;
             }
@@ -240,6 +308,10 @@ namespace SimuladorVento
                 case "rotate":
                     if (rotation)
                         rotateFan(new Vector2(e.X, e.Y), selectedFan);
+                    break;
+                case "force":
+                    if (changeForce)
+                        fans[selectedFan].force = barValue * -0.03f;
                     break;
             }
         }
@@ -276,7 +348,6 @@ namespace SimuladorVento
         {
             spawner.draw(g);
             objective.draw(g);
-            collision(g);
             foreach (Fan f in fans)
                 f.draw(g);
         }

@@ -11,7 +11,7 @@ namespace SimuladorVento
 {
     public abstract class Fan
     {
-        protected Vector2 pos, force;
+        protected Vector2 pos, angle;
         protected Bitmap fanImg;
         protected Rectangle fanRect;
         protected WindBox windBox;
@@ -22,16 +22,18 @@ namespace SimuladorVento
         protected int number;
         protected float rotation;
         public Rectangle wBR;
+        public float force;
+        private bool rem;
 
         public Vector2 Pos
         {
             get { return pos; }
             set { pos = value; }
         }
-        public Vector2 Force
+        public Vector2 Angle
         {
-            get { return force; }
-            set { force = value; }
+            get { return angle; }
+            set { angle = value; }
         }
         public Rectangle FanRect
         {
@@ -48,10 +50,20 @@ namespace SimuladorVento
             get { return number; }
             set { number = value; }
         }
+        public float Force
+        {
+            get { return force; }
+            set { force = value; }
+        }
         public WindBox WindBox
         {
             get { return windBox; }
             set { windBox = value; }
+        }
+        public bool Rem
+        {
+            get { return rem; }
+            set { rem = value; }
         }
 
         public bool IsInPolygon(Point[] p, float X, float Y)
