@@ -144,12 +144,6 @@ namespace SimuladorVento
 
         private void Simulador_Resize(object sender, EventArgs e)
         {
-            buttonCreateFrontal.Location = new Point(buttonCreateFrontal.Location.X, Height - 102);
-            buttonCreateLateral.Location = new Point(buttonCreateLateral.Location.X, Height - 102);
-            buttonForce.Location = new Point(buttonForce.Location.X, Height - 102);
-            buttonMove.Location = new Point(buttonMove.Location.X, Height - 102);
-            buttonRemove.Location = new Point(buttonRemove.Location.X, Height - 102);
-            buttonRotate.Location = new Point(buttonRotate.Location.X, Height - 102);
             arena.objective.Pos = new Vector2(arena.Area.Width - arena.objective.PosWidth, arena.Area.Height - 10);
         }
     }

@@ -20,9 +20,12 @@ namespace SimuladorVento
             this.rotation = 0;
             this.angle = newForce;
             this.number = n;
-            points = new Point[] { new Point(-10, 0), new Point(-6, 6), new Point(-1, 7), new Point(3, 4), new Point(6, 12), new Point(8, 13), new Point(9, 0), new Point(8, -13), new Point(6, -12), new Point(3, -4), new Point(-1, -7), new Point(-6, -6) };
+            points = new Point[] { new Point(-22, 0), new Point(-20, 6), new Point(-17, 7), new Point(-14, 6), new Point(-10, 5), new Point(-7, 4), new Point(-3, 4), new Point(3, 6), new Point(6, 6), new Point(8, 5), new Point(11, 0), new Point(14, 0), new Point(22, -2), new Point(18, -6), new Point(14, -7), new Point(2, -7), new Point(-4, -5), new Point(-7, -3), new Point(-12, -5), new Point(-17, -5), new Point(-20, -2) };
             windBox = new WindBox(pos, points[1].X, points[1].Y);
-            myPen = new Pen(Color.White, 1);
+            dim = new SizeF(6, 6);
+            pincel = new SolidBrush(Color.White);
+            myPen = new Pen(Color.White);
+            force = -0.1f;
         }
 
         public override Vector2 getNewPosition(float r, float x, float y)
@@ -48,11 +51,14 @@ namespace SimuladorVento
             g.RotateTransform(rotation);
             g.DrawImage(fanImg, fanRect);
             g.DrawPolygon(myPen, points);
+            RectangleF rect = new RectangleF(
+                new Point((int)-dim.Width / 2, (int)-dim.Height / 2),
+                dim);
+            g.FillEllipse(pincel, rect);
 
-            Vector2 newPos = getNewPosition(rotation, 10, 0);
-
-            windBox.Pos = new Vector2(pos.X + newPos.X - 8, pos.Y + newPos.Y);
-            windBox.Rotation = rotation - 90;
+            Vector2 newPos = getNewPosition(rotation, 22, 0);
+            windBox.Pos = new Vector2(pos.X + newPos.X + 11, pos.Y + newPos.Y);
+            windBox.Rotation = rotation;
             windBox.draw(g);
         }
     }

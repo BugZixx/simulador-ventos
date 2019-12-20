@@ -52,6 +52,7 @@
     <Compile Include="Fan.cs" />
     <Compile Include="LateralFan.cs" />
     <Compile Include="Objective.cs" />
+    <Compile Include="Obstaculo.cs" />
     <Compile Include="Simulador.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\fanLateral.png" />
+    <None Include="Resources\hitbox.png" />
     <None Include="Resources\targetAchieved.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

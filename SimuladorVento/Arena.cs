@@ -145,10 +145,9 @@ namespace SimuladorVento
             {
                 b.bR = b.Rect;
                 b.bR = new Rectangle(b.bR.X + (int)b.Pos.X, b.bR.Y + (int)b.Pos.Y, b.bR.Width, b.bR.Height);
+
                 if (objectiveR.IsVisible(b.bR))
-                {
                     b.GoalAchieved = true;
-                }
                 else
                     b.GoalAchieved = false;
 
@@ -214,6 +213,7 @@ namespace SimuladorVento
         {
             savedPos = position;
             LateralFan newFan = new LateralFan(position, new Vector2(0, 0), fanNumber);
+            r.Add(new Region());
             fans.Add(newFan);
         }
 

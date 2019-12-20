@@ -15,9 +15,13 @@ namespace SimuladorVento
         private float rotation;
         private Pen myPen;
         private Rectangle rect;
+        private Bitmap hitBoxImg;
+        private Rectangle hitBoxRect;
 
         public WindBox(Vector2 pos, float x, float y)
         {
+            hitBoxImg = new Bitmap(Properties.Resources.hitbox);
+            hitBoxRect = new Rectangle(15, 0 - hitBoxImg.Height / 2, hitBoxImg.Width, hitBoxImg.Height);
             this.pos = pos + (new Vector2(x, y));
             rect = new Rectangle(15, -25, 85, 50);
             myPen = new Pen(Color.Red, 1);
@@ -54,6 +58,7 @@ namespace SimuladorVento
             g.TranslateTransform(pos.X, pos.Y, MatrixOrder.Append);
             g.RotateTransform(rotation);
             g.DrawRectangle(myPen, rect);
+            g.DrawImage(hitBoxImg, hitBoxRect);
         }
     }
 }

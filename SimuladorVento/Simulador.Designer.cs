@@ -68,6 +68,7 @@
             // 
             // forceBar
             // 
+            this.forceBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.forceBar.BackColor = System.Drawing.Color.White;
             this.forceBar.LargeChange = 10;
             this.forceBar.Location = new System.Drawing.Point(434, 413);
@@ -131,6 +132,7 @@
             // 
             // buttonCreateFrontal
             // 
+            this.buttonCreateFrontal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCreateFrontal.BackColor = System.Drawing.Color.DarkRed;
             this.buttonCreateFrontal.BackgroundImage = global::SimuladorVento.Properties.Resources.buttonCreateFrontal;
             this.buttonCreateFrontal.FlatAppearance.BorderSize = 0;
@@ -145,6 +147,7 @@
             // 
             // buttonCreateLateral
             // 
+            this.buttonCreateLateral.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCreateLateral.BackColor = System.Drawing.Color.DarkRed;
             this.buttonCreateLateral.BackgroundImage = global::SimuladorVento.Properties.Resources.buttonCreateLateral;
             this.buttonCreateLateral.FlatAppearance.BorderSize = 0;
@@ -159,6 +162,7 @@
             // 
             // buttonMove
             // 
+            this.buttonMove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonMove.BackColor = System.Drawing.Color.DarkRed;
             this.buttonMove.BackgroundImage = global::SimuladorVento.Properties.Resources.buttonMove;
             this.buttonMove.FlatAppearance.BorderSize = 0;
@@ -173,6 +177,7 @@
             // 
             // buttonRotate
             // 
+            this.buttonRotate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRotate.BackColor = System.Drawing.Color.DarkRed;
             this.buttonRotate.BackgroundImage = global::SimuladorVento.Properties.Resources.buttonRotate;
             this.buttonRotate.FlatAppearance.BorderSize = 0;
@@ -187,6 +192,7 @@
             // 
             // buttonForce
             // 
+            this.buttonForce.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonForce.BackColor = System.Drawing.Color.DarkRed;
             this.buttonForce.BackgroundImage = global::SimuladorVento.Properties.Resources.buttonForce;
             this.buttonForce.FlatAppearance.BorderSize = 0;
@@ -201,6 +207,7 @@
             // 
             // buttonRemove
             // 
+            this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemove.BackColor = System.Drawing.Color.DarkRed;
             this.buttonRemove.BackgroundImage = global::SimuladorVento.Properties.Resources.buttonRemove;
             this.buttonRemove.FlatAppearance.BorderSize = 0;
