@@ -29,9 +29,14 @@ namespace SimuladorVento
 
         public override Vector2 getNewPosition(float r, float x, float y)
         {
+            // metodo que serve para calcular a posição de x, y após rotação r
             Vector2 newPos;
             float x1, y1;
-            r *= (float)(Math.PI / 180);
+            r *= (float)(Math.PI / 180); // determina teta
+            
+            // equação para determinar o novo angulo:
+            // x = x * cos(teta) - y * sin(teta)
+            // y = y * cos(teta) + x * sin(teta)
             x1 = (float)(x * Math.Cos(r) - y * Math.Sin(r));
             y1 = (float)(y * Math.Cos(r) + x * Math.Sin(r));
 
@@ -53,7 +58,6 @@ namespace SimuladorVento
             g.FillEllipse(pincel, rect);
 
             Vector2 newPos = getNewPosition(rotation, 10, 0);
-            Vector2 newHitBoxPos = getNewPosition(rotation, windBox.Rect.X, windBox.Rect.Y);
 
             windBox.Pos = new Vector2(pos.X + newPos.X - 5, pos.Y + newPos.Y);
             windBox.Rotation = rotation;

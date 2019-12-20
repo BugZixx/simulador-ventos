@@ -25,6 +25,7 @@ namespace SimuladorVento
         public float force;
         private bool rem;
 
+        //getters e setters
         public Vector2 Pos
         {
             get { return pos; }
@@ -66,6 +67,7 @@ namespace SimuladorVento
             set { rem = value; }
         }
 
+        // metodos usados por ambas as ventoinhas, por isso optamos por escreve-los na classe principal
         public bool IsInPolygon(Point[] p, float X, float Y)
         {
             for (int k = 0; k < p.Length; k++)
@@ -75,6 +77,7 @@ namespace SimuladorVento
             }
 
             int max_point = p.Length - 1;
+            
             float total_angle = GetAngle(
                 p[max_point].X, p[max_point].Y,
                 X, Y,

@@ -69,7 +69,7 @@ namespace SimuladorVento
         private void panelArea_MouseDown(object sender, MouseEventArgs e)
         {
             arena.mouseClick(sender, e);
-            statusLabelInfo.Text = arena.x;
+            // statusLabelInfo.Text = arena.x;
         }
 
         private void panelArea_MouseMove(object sender, MouseEventArgs e)
@@ -85,35 +85,35 @@ namespace SimuladorVento
         private void buttonCreateFrontal_Click(object sender, EventArgs e)
         {
             resetButtons();
-            buttonCreateFrontal.BackgroundImage = Properties.Resources.buttonCreateFrontalInverted;
+            buttonCreateFrontal.BackgroundImage = Properties.Resources.buttonCreateFrontalInverted; // muda o botao para ativo
             arena.Action = "createFrontal";
         }
 
         private void buttonCreateLateral_Click(object sender, EventArgs e)
         {
             resetButtons();
-            buttonCreateLateral.BackgroundImage = Properties.Resources.buttonCreateLateralInverted;
+            buttonCreateLateral.BackgroundImage = Properties.Resources.buttonCreateLateralInverted; // muda o botao para ativo
             arena.Action = "createLateral";
         }
 
         private void buttonMove_Click(object sender, EventArgs e)
         {
             resetButtons();
-            buttonMove.BackgroundImage = Properties.Resources.buttonMoveInverted;
+            buttonMove.BackgroundImage = Properties.Resources.buttonMoveInverted; // muda o botao para ativo
             arena.Action = "move";
         }
 
         private void buttonRotate_Click(object sender, EventArgs e)
         {
             resetButtons();
-            buttonRotate.BackgroundImage = Properties.Resources.buttonRotateInverted;
+            buttonRotate.BackgroundImage = Properties.Resources.buttonRotateInverted; // muda o botao para ativo
             arena.Action = "rotate";
         }
 
         private void buttonForce_Click(object sender, EventArgs e)
         {
             resetButtons();
-            buttonForce.BackgroundImage = Properties.Resources.buttonForceInverted;
+            buttonForce.BackgroundImage = Properties.Resources.buttonForceInverted; // muda o botao para ativo
             forceBar.Visible = true;
             arena.BarValue = forceBar.Value;
             arena.Action = "force";
@@ -122,11 +122,11 @@ namespace SimuladorVento
         private void buttonRemove_Click(object sender, EventArgs e)
         {
             resetButtons();
-            buttonRemove.BackgroundImage = Properties.Resources.buttonRemoveInverted;
+            buttonRemove.BackgroundImage = Properties.Resources.buttonRemoveInverted; // muda o botao para ativo
             arena.Action = "remove";
         }
 
-        private void resetButtons()
+        private void resetButtons() // serve para deixar todos os butoes no seu estado normal
         {
             buttonCreateFrontal.BackgroundImage = Properties.Resources.buttonCreateFrontal;
             buttonCreateLateral.BackgroundImage = Properties.Resources.buttonCreateLateral;
@@ -139,12 +139,12 @@ namespace SimuladorVento
 
         private void forceBar_ValueChanged(object sender, EventArgs e)
         {
-            arena.BarValue = forceBar.Value;
+            arena.BarValue = forceBar.Value; // ajusta a força que deve dar a uma ventoinha conforme a trackbar
         }
 
         private void Simulador_Resize(object sender, EventArgs e)
         {
-            arena.objective.Pos = new Vector2(arena.Area.Width - arena.objective.PosWidth, arena.Area.Height - 10);
+            arena.objective.Pos = new Vector2(arena.Area.Width - arena.objective.PosWidth, arena.Area.Height - 10); // certifica-se que o objetivo final fica junto ao lado direito da arena, depois do resize
         }
     }
 }

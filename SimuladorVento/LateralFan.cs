@@ -30,6 +30,8 @@ namespace SimuladorVento
 
         public override Vector2 getNewPosition(float r, float x, float y)
         {
+            // metodo igual usado em FrontalFan.cs
+            // explicado lá
             Vector2 newPos;
             float x1, y1;
             x = 16;
