@@ -49,6 +49,7 @@ namespace SimuladorVento
 
         public void SpawnBullet()
         {
+            //metodo para criar/disparar bullets
             if (i == 6)
             {
                 Bullet e = new Bullet(new Vector2(pos.X + 18, pos.Y), 1);
@@ -60,6 +61,7 @@ namespace SimuladorVento
 
         public void moveBullets()
         {
+            // metodo para mover as bullets
             foreach (Bullet e in bullets)
             {
                 e.move();

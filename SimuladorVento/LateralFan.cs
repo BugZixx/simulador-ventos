@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SimuladorVento
 {
@@ -20,7 +21,7 @@ namespace SimuladorVento
             this.rotation = 0;
             this.angle = newForce;
             this.number = n;
-            points = new Point[] { new Point(-22, 0), new Point(-20, 6), new Point(-17, 7), new Point(-14, 6), new Point(-10, 5), new Point(-7, 4), new Point(-3, 4), new Point(3, 6), new Point(6, 6), new Point(8, 5), new Point(11, 0), new Point(14, 0), new Point(22, -2), new Point(18, -6), new Point(14, -7), new Point(2, -7), new Point(-4, -5), new Point(-7, -3), new Point(-12, -5), new Point(-17, -5), new Point(-20, -2) };
+            points = new Point[] { new Point(0, 22), new Point(-6, 20), new Point(-7, 17), new Point(-6, 14), new Point(-5, 10), new Point(-4, 7), new Point(-3, 4), new Point(-6, -3), new Point(-6, -6), new Point(-5, -8), new Point(0, -11), new Point(0, -14), new Point(2, -22), new Point(6, -18), new Point(7, -14), new Point(7, -2), new Point(5, 4), new Point(3, 7), new Point(5, 12), new Point(5, 17), new Point(2, 20) };
             windBox = new WindBox(pos, points[1].X, points[1].Y);
             dim = new SizeF(6, 6);
             pincel = new SolidBrush(Color.White);
@@ -32,10 +33,9 @@ namespace SimuladorVento
         {
             // metodo igual usado em FrontalFan.cs
             // explicado lá
+            
             Vector2 newPos;
             float x1, y1;
-            x = 16;
-            y = 0;
             r *= (float)(Math.PI / 180);
             x1 = (float)(x * Math.Cos(r) - y * Math.Sin(r));
             y1 = (float)(y * Math.Cos(r) + x * Math.Sin(r));
@@ -52,7 +52,7 @@ namespace SimuladorVento
             g.ScaleTransform(2, 2);
             g.RotateTransform(rotation);
             g.DrawImage(fanImg, fanRect);
-            g.DrawPolygon(myPen, points);
+            //g.DrawPolygon(myPen, points);
             RectangleF rect = new RectangleF(
                 new Point((int)-dim.Width / 2, (int)-dim.Height / 2),
                 dim);

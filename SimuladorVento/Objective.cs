@@ -60,6 +60,7 @@ namespace SimuladorVento
 
         public void draw(Graphics g)
         {
+            // define se desenha alvo atingido (versão verde) ou não atingido (versão vermelha)
             if(!goalAchieved)
                 targetImg = new Bitmap(Properties.Resources.target);
             else
