@@ -211,6 +211,17 @@ namespace SimuladorVento.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 10 50
+        ///7 75
+        ///13 61.
+        /// </summary>
+        internal static string obsRect {
+            get {
+                return ResourceManager.GetString("obsRect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap spawner {

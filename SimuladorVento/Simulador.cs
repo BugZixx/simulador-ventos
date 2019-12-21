@@ -20,6 +20,7 @@ namespace SimuladorVento
         {
             InitializeComponent();
             arena = Arena.GetInstancia(panelArea.Size);
+            txt.Name = "Path para ficheiro de obstáculos";
         }
 
         private void panelArea_Paint(object sender, PaintEventArgs e)
@@ -145,6 +146,25 @@ namespace SimuladorVento
         private void Simulador_Resize(object sender, EventArgs e)
         {
             arena.objective.Pos = new Vector2(arena.Area.Width - arena.objective.PosWidth, arena.Area.Height - 10); // certifica-se que o objetivo final fica junto ao lado direito da arena, depois do resize
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                arena.txtText = txt.Text;
+                txt.Visible = false;
+                if(txt.Text.Length > 0)
+                {
+                    arena.obsRect = System.IO.File.ReadAllLines(arena.txtText);
+                    arena.createObstacles();
+                }
+            }
         }
     }
 }

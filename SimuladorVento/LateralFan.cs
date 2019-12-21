@@ -58,8 +58,8 @@ namespace SimuladorVento
                 dim);
             g.FillEllipse(pincel, rect);
 
-            Vector2 newPos = getNewPosition(rotation, 22, 0);
-            windBox.Pos = new Vector2(pos.X + newPos.X + 11, pos.Y + newPos.Y);
+            Vector2 newPos = getNewPosition(rotation, 10, 0);
+            windBox.Pos = new Vector2(pos.X + newPos.X + 5, pos.Y + newPos.Y - 10);
             windBox.Rotation = rotation;
             windBox.draw(g);
         }

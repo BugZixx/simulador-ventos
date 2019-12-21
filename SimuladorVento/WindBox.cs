@@ -57,7 +57,7 @@ namespace SimuladorVento
             g.ResetTransform();
             g.TranslateTransform(pos.X, pos.Y, MatrixOrder.Append);
             g.RotateTransform(rotation);
-            g.DrawRectangle(myPen, rect);
+            //g.DrawRectangle(myPen, rect);
             g.DrawImage(hitBoxImg, hitBoxRect);
         }
     }

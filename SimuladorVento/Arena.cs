@@ -19,28 +19,33 @@ namespace SimuladorVento
         private Vector2 savedPos;
         private string action;
         private int fanNumber = 0;
-        private bool rotation = false;
-        private bool motion = false;
-        private bool changeForce = false;
+        private bool rotation = false, motion = false, changeForce = false;
         private int selectedFan;
         private SolidBrush pincel;
         private Region objectiveR;
-        private List<Region> r;
-        private GraphicsPath grapPth, objPath;
+        private List<Region> regFans, regObs;
+        private GraphicsPath grapPth, objPath, obsPath;
         private float barValue;
+        public string[] obsRect;
+        public string txtText;
+        private Random rnd;
 
         private static Arena instancia = null;
         public List<Fan> fans;
+        public List<Obstacle> obs;
 
         public Arena(Size d)
         {
+            rnd = new Random();
             l = 6;
             area = d;
             spawner = new Spawner(area.Height);
             objective = new Objective(area.Width, area.Height);
             fans = new List<Fan>();
             pincel = new SolidBrush(Color.White);
-            r = new List<Region>();
+            regFans = new List<Region>();
+            regObs = new List<Region>();
+            obs = new List<Obstacle>();
         }
 
         public static Arena GetInstancia(Size d) // Singleton
@@ -88,6 +93,7 @@ namespace SimuladorVento
             spawner.moveBullets(); // faz com que as bullets se movam
             collisionFan();        // ve as colisoes com ventoinhas
             collisionObjective();  // ve as colisoes com o objetivo
+            collisionObstacles();  // ve as colisoes com os obstaculos
         }
 
         public void collisionFan()
@@ -114,9 +120,9 @@ namespace SimuladorVento
                 Point[] p = { ToPoint(bl), ToPoint(tl), ToPoint(tr), ToPoint(br) };
                 grapPth = new GraphicsPath();
                 grapPth.AddLines(p);
-                r[f.Number] = new Region(grapPth);
+                regFans[f.Number] = new Region(grapPth);
                 grapPth.Transform(rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y)));
-                r[f.Number].Transform(rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y)));
+                regFans[f.Number].Transform(rotateAroundPoint(f.Rotation, new Point((int)f.Pos.X - 5, (int)f.Pos.Y)));
                 rotationAngle(f.Number, new Vector2((int)grapPth.PathPoints[1].X, (int)grapPth.PathPoints[1].Y), new Vector2((int)grapPth.PathPoints[2].X, (int)grapPth.PathPoints[2].Y));
 
                 foreach (Bullet b in spawner.Bullets)
@@ -128,14 +134,14 @@ namespace SimuladorVento
                     // sem estes dois booleans e o Vector2, após sair da ventoinha, as bullets continuavam a acelerar
                     b.bR = b.Rect;
                     b.bR = new Rectangle(b.bR.X + (int)b.Pos.X, b.bR.Y + (int)b.Pos.Y, b.bR.Width, b.bR.Height);
-                    if (r[f.Number].IsVisible(b.bR))
+                    if (regFans[f.Number].IsVisible(b.bR))
                     {
                         b.Rem = true;
                         f.Rem = true;
                         b.Acel += f.Angle * f.Force * 0.005f;
                         b.remAcel = b.Acel;
                     }
-                    if (!r[f.Number].IsVisible(b.bR) && b.Rem == true && f.Rem == true)
+                    if (!regFans[f.Number].IsVisible(b.bR) && b.Rem == true && f.Rem == true)
                     {
                         b.Acel -= b.remAcel;
                         b.Rem = false;
@@ -184,6 +190,37 @@ namespace SimuladorVento
             }
         }
 
+        public void collisionObstacles()
+        {
+            for (int m = 0; m < obs.Count(); m++)
+            {
+                obsPath = new GraphicsPath();
+                obsPath.AddRectangle(obs[m].Area);
+                regObs[m] = new Region(obsPath);
+                for (int n = 0; n < spawner.Bullets.Count(); n++)
+                {
+                    // as duas linhas abaixo são iguais aos dois outros metodos de colisoes, mas como este pretende remover bullets, não podemos usar foreach
+                    spawner.Bullets[n].bR = spawner.Bullets[n].Rect;
+                    spawner.Bullets[n].bR = new Rectangle(spawner.Bullets[n].bR.X + (int)spawner.Bullets[n].Pos.X, spawner.Bullets[n].bR.Y + (int)spawner.Bullets[n].Pos.Y, spawner.Bullets[n].bR.Width, spawner.Bullets[n].bR.Height);
+                    if (regObs[m].IsVisible(spawner.Bullets[n].bR))
+                    {
+                        spawner.Bullets.Remove(spawner.Bullets[n]);
+                        n--;
+                    }
+                }
+            }
+        }
+
+        public void createObstacles()
+        {
+            foreach (String s in obsRect)
+            {
+                String[] ss = s.Split(' ');
+                obs.Add(new Obstacle(ss[0], ss[1], Area.Height, Area.Width, rnd));
+                regObs.Add(new Region());
+            }
+        }
+
         private Matrix rotateAroundPoint(float angle, Point center)
         {
             // devolve uma matriz que roda algo à volta do ponto 'center' com o angulo 'angle'
@@ -225,7 +262,7 @@ namespace SimuladorVento
             // adiciona tambem uma nova region, para ser comparada às bullets mais tarde
             savedPos = position;
             FrontalFan newFan = new FrontalFan(position, new Vector2(0, 0), fanNumber);
-            r.Add(new Region());
+            regFans.Add(new Region());
             fans.Add(newFan);
         }
 
@@ -235,7 +272,7 @@ namespace SimuladorVento
             // adiciona tambem uma nova region, para ser comparada às bullets mais tarde
             savedPos = position;
             LateralFan newFan = new LateralFan(position, new Vector2(0, 0), fanNumber);
-            r.Add(new Region());
+            regFans.Add(new Region());
             fans.Add(newFan);
         }
 
@@ -381,6 +418,8 @@ namespace SimuladorVento
             objective.draw(g);
             foreach (Fan f in fans)
                 f.draw(g);
+            foreach (Obstacle o in obs)
+                o.draw(g);
         }
     }
 }
