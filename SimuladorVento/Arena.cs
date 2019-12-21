@@ -22,7 +22,7 @@ namespace SimuladorVento
         private bool rotation = false, motion = false, changeForce = false;
         private int selectedFan;
         private SolidBrush pincel;
-        private Region objectiveR;
+        private Region objectiveR, arenaR;
         private List<Region> regFans, regObs;
         private GraphicsPath grapPth, objPath, obsPath;
         private float barValue;
@@ -89,11 +89,12 @@ namespace SimuladorVento
 
         public void move()
         {
-            spawner.SpawnBullet(); // cria novas bullets
-            spawner.moveBullets(); // faz com que as bullets se movam
-            collisionFan();        // ve as colisoes com ventoinhas
-            collisionObjective();  // ve as colisoes com o objetivo
-            collisionObstacles();  // ve as colisoes com os obstaculos
+            spawner.SpawnBullet();   // cria novas bullets
+            spawner.moveBullets();   // faz com que as bullets se movam
+            collisionFan();          // ve as colisoes com ventoinhas
+            collisionObjective();    // ve as colisoes com o objetivo
+            collisionObstacles();    // ve as colisoes com os obstaculos
+            collisionOutsideArena(); // ve se as bullets saem da area da arena
         }
 
         public void collisionFan()
@@ -211,8 +212,25 @@ namespace SimuladorVento
             }
         }
 
+        public void collisionOutsideArena()
+        {
+            // metodo de colisão igual aos outros
+            // este deteta se as bolas saem fora da area da arena
+            for (int p = 0; p < spawner.Bullets.Count(); p++)
+            {
+                spawner.Bullets[p].bR = spawner.Bullets[p].Rect;
+                spawner.Bullets[p].bR = new Rectangle(spawner.Bullets[p].bR.X + (int)spawner.Bullets[p].Pos.X, spawner.Bullets[p].bR.Y + (int)spawner.Bullets[p].Pos.Y, spawner.Bullets[p].bR.Width, spawner.Bullets[p].bR.Height);
+                arenaR = new Region(new Rectangle(new Point(0, 0), area));
+                if (!arenaR.IsVisible(spawner.Bullets[p].bR))
+                    spawner.Bullets.Remove(spawner.Bullets[p]);
+            }
+        }
+
         public void createObstacles()
         {
+            // metodo para gerar os obstáculos
+            // pega em todas as strings no array e divide-as em substrings
+            // cria obstaculos com os valores das substrings
             foreach (String s in obsRect)
             {
                 String[] ss = s.Split(' ');

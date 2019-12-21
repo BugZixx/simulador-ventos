@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace SimuladorVento
 {
@@ -148,20 +149,25 @@ namespace SimuladorVento
             arena.objective.Pos = new Vector2(arena.Area.Width - arena.objective.PosWidth, arena.Area.Height - 10); // certifica-se que o objetivo final fica junto ao lado direito da arena, depois do resize
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void txt_KeyDown(object sender, KeyEventArgs e)
         {
+            // quando o utilizador clica no enter, ou se usa o path introduzido por ele, ou usa o path predefinido
+            // usa-se o metodo ReadAllLines para converter as linhas do ficheiro para um array de strings
             if(e.KeyCode == Keys.Enter)
             {
                 arena.txtText = txt.Text;
                 txt.Visible = false;
+                text1.Visible = false;
                 if(txt.Text.Length > 0)
                 {
                     arena.obsRect = System.IO.File.ReadAllLines(arena.txtText);
+                    arena.createObstacles();
+                }
+                else
+                {
+                    String path = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).ToString()).ToString();
+                    path = path + "\\obsRect.txt";
+                    arena.obsRect = System.IO.File.ReadAllLines(path);
                     arena.createObstacles();
                 }
             }
