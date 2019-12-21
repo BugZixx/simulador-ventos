@@ -36,7 +36,6 @@
             this.timerAnimation = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonCreateFrontal = new System.Windows.Forms.Button();
@@ -45,8 +44,12 @@
             this.buttonRotate = new System.Windows.Forms.Button();
             this.buttonForce = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.sairToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panelArea.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.forceBar)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelArea
@@ -58,9 +61,9 @@
             this.panelArea.Controls.Add(this.text1);
             this.panelArea.Controls.Add(this.txt);
             this.panelArea.Controls.Add(this.forceBar);
-            this.panelArea.Location = new System.Drawing.Point(12, 12);
+            this.panelArea.Location = new System.Drawing.Point(12, 27);
             this.panelArea.Name = "panelArea";
-            this.panelArea.Size = new System.Drawing.Size(862, 458);
+            this.panelArea.Size = new System.Drawing.Size(862, 443);
             this.panelArea.TabIndex = 0;
             this.panelArea.SizeChanged += new System.EventHandler(this.panelArea_SizeChanged);
             this.panelArea.Paint += new System.Windows.Forms.PaintEventHandler(this.panelArea_Paint);
@@ -92,7 +95,7 @@
             this.forceBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.forceBar.BackColor = System.Drawing.Color.White;
             this.forceBar.LargeChange = 10;
-            this.forceBar.Location = new System.Drawing.Point(434, 413);
+            this.forceBar.Location = new System.Drawing.Point(434, 398);
             this.forceBar.Maximum = 100;
             this.forceBar.Name = "forceBar";
             this.forceBar.Size = new System.Drawing.Size(326, 45);
@@ -123,29 +126,6 @@
             this.statusLabelInfo.Name = "statusLabelInfo";
             this.statusLabelInfo.Size = new System.Drawing.Size(57, 17);
             this.statusLabelInfo.Text = "Info = 0,0";
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(886, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sairToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // sairToolStripMenuItem
-            // 
-            this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
-            this.sairToolStripMenuItem.Text = "Sair";
-            this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
             // buttonCreateFrontal
             // 
@@ -237,6 +217,31 @@
             this.buttonRemove.UseVisualStyleBackColor = false;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem1});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(886, 24);
+            this.menuStrip1.TabIndex = 9;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem1
+            // 
+            this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sairToolStripMenuItem1});
+            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem1.Text = "File";
+            // 
+            // sairToolStripMenuItem1
+            // 
+            this.sairToolStripMenuItem1.Name = "sairToolStripMenuItem1";
+            this.sairToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.sairToolStripMenuItem1.Text = "Sair";
+            this.sairToolStripMenuItem1.Click += new System.EventHandler(this.sairToolStripMenuItem1_Click);
+            // 
             // Simulador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -258,6 +263,8 @@
             this.panelArea.ResumeLayout(false);
             this.panelArea.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.forceBar)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -268,7 +275,6 @@
         private System.Windows.Forms.Panel panelArea;
         private System.Windows.Forms.Timer timerAnimation;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
         private System.Windows.Forms.Button buttonCreateFrontal;
@@ -281,6 +287,9 @@
         private System.Windows.Forms.TrackBar forceBar;
         private System.Windows.Forms.TextBox txt;
         private System.Windows.Forms.Label text1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem1;
     }
 }
 

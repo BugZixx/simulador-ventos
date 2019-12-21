@@ -63,7 +63,7 @@ namespace SimuladorVento
             redrawArea();
         }
 
-        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
+        private void sairToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
